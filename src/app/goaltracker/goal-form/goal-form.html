@@ -1,5 +1,5 @@
 <section class="goal-form">
-  <ng-container *ngIf="!savingGoal || !loadingGoal">
+  <ng-container *ngIf="!savingGoal && !loadingGoal">
     <form [formGroup]="goalForm" (ngSubmit)="sendGoal()">
       <div class="row">
         <div class="col-12 col-lg-4">
@@ -57,8 +57,14 @@
         <div class="col-12 col-lg-4">
           <div class="form-group mb-3">
             <button type="submit" class="btn btn-success me-2" [disabled]="goalForm.invalid">
-              <fa-icon [icon]="faSave"></fa-icon>
-              Save Goal
+              <ng-container *ngIf="!editGoal">
+                <fa-icon [icon]="faSave"></fa-icon>
+                Save Goal
+              </ng-container>
+              <ng-container *ngIf="editGoal">
+                <fa-icon [icon]="faPencil"></fa-icon>
+                Edit Goal
+              </ng-container>
             </button>
             <button type="button" class="btn btn-danger" (click)="cleanForm()">
               <fa-icon [icon]="faBroom"></fa-icon>

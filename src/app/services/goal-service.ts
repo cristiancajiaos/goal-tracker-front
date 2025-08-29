@@ -36,4 +36,12 @@ export class GoalService {
     return await lastValueFrom(this.http.get<ResponseGoal>(`${this.baseUrl}/${id}`));
   }
 
+  public async updateGoal(id: string | undefined, goal: Goal) {
+    return await lastValueFrom(this.http.patch<ResponseGoal>(`${this.baseUrl}/${id}`, goal, {
+      headers: {
+        "Content-Type":"application/json"
+      }
+    }))
+  }
+
 }

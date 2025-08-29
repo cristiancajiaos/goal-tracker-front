@@ -1,6 +1,6 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {IconDefinition} from '@fortawesome/angular-fontawesome';
-import {faSave, faBroom} from '@fortawesome/free-solid-svg-icons';
+import {faSave, faBroom, faPencil} from '@fortawesome/free-solid-svg-icons';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Priority} from '../../enums/priority';
 import {Status} from '../../enums/status';
@@ -29,10 +29,13 @@ export class GoalForm implements OnInit {
 
   public faSave: IconDefinition = faSave;
   public faBroom: IconDefinition = faBroom;
+  public faPencil: IconDefinition = faPencil;
 
   public loadingGoal: boolean = false;
   public savingGoal: boolean = false;
   public editGoal: boolean = false;
+
+  public currentGoal: Goal | undefined = undefined;
 
   @Output() onGoalSave: EventEmitter<ResponseGoal> = new EventEmitter<ResponseGoal>();
 
@@ -56,7 +59,8 @@ export class GoalForm implements OnInit {
     this.loadingGoal = true;
     this.goalService.getGoalById(id)
     .then((responseGoal) => {
-      const goal = responseGoal.data;
+      const goal: Goal | undefined = responseGoal.data;
+      this.currentGoal = goal;
       this.goalForm.reset();
       this.goalForm.controls['goalName'].setValue(goal?.name);
       this.goalForm.controls['goalPriority'].setValue(goal?.priority);
@@ -80,15 +84,33 @@ export class GoalForm implements OnInit {
     savingGoal.priority = this.goalForm.value['goalPriority'];
     savingGoal.status = this.goalForm.value['goalStatus'];
 
-    this.goalService.saveGoal(savingGoal).then((responseGoal) => {
-      this.onGoalSave.emit(responseGoal);
-      this.toastr.success('Goal saved successfully');
-      this.cleanForm();
-    }).catch((error) => {
-      this.toastr.error(error);
-    }).finally(() => {
-      this.savingGoal = false;
-    });
+    if (this.editGoal) {
+      this.goalService.updateGoal(this.currentGoal?.id, savingGoal)
+      .then((responseGoal) => {
+        this.onGoalSave.emit(responseGoal);
+        this.toastr.success('Goal updated successfully');
+        this.cleanForm();
+        this.editGoal = false;
+      })
+      .catch((error) => {
+        this.toastr.error(error);
+      })
+      .finally(() => {
+        this.savingGoal = false;
+      });
+    } else {
+      this.goalService.saveGoal(savingGoal).then((responseGoal) => {
+        this.onGoalSave.emit(responseGoal);
+        this.toastr.success('Goal saved successfully');
+        this.cleanForm();
+      }).catch((error) => {
+        this.toastr.error(error);
+      }).finally(() => {
+        this.savingGoal = false;
+      });
+    }
+
+
   }
 
   public cleanForm(): void {
