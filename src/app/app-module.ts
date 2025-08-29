@@ -12,6 +12,7 @@ import { Footer } from './components/layout/footer/footer';
 import {provideHttpClient, withFetch} from '@angular/common/http';
 import {ToastrModule} from 'ngx-toastr';
 import {provideAnimations} from '@angular/platform-browser/animations';
+import {provideSweetAlert2} from '@sweetalert2/ngx-sweetalert2';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,10 @@ import {provideAnimations} from '@angular/platform-browser/animations';
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideHttpClient(withFetch()),
-    provideAnimations()
+    provideAnimations(),
+    provideSweetAlert2({
+      dismissOnDestroy: false
+    })
   ],
   bootstrap: [App]
 })

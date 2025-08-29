@@ -9,6 +9,7 @@ import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {SharedModule} from '../components/shared/shared-module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {SweetAlert2Module} from '@sweetalert2/ngx-sweetalert2';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     FontAwesomeModule,
     SharedModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SweetAlert2Module
   ]
 })
 export class GoaltrackerModule { }

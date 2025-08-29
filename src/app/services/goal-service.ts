@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {ResponseGoal} from '../classes/response-goal';
-import {lastValueFrom} from 'rxjs';
+import {lastValueFrom, Observable} from 'rxjs';
 import {Goal} from '../classes/goal';
 import {ResponseGoals} from '../classes/response-goals';
 
@@ -26,6 +26,10 @@ export class GoalService {
         "Content-Type":"application/json "
       }
     })))
+  }
+
+  public deleteGoal(id: string | undefined): Observable<Object> {
+    return this.http.delete(`${this.baseUrl}/${id}`);
   }
 
 }

@@ -23,7 +23,11 @@
               <button type="button" class="btn btn-primary" ngbTooltip="Edit">
                 <fa-icon [icon]="faPencil"></fa-icon>
               </button>
-              <button type="button" class="btn btn-danger" ngbTooltip="Delete">
+              <button type="button"
+                      class="btn btn-danger"
+                      ngbTooltip="Delete"
+                      [swal]="{title: 'Confirm delete', text: 'This action is irreversible. Are you sure you want to delete this goal?', showDenyButton: true, confirmButtonText: 'Confirm', denyButtonText: 'Cancel'}"
+                      (confirm)="deleteGoal(goal.id)">
                 <fa-icon [icon]="faTimes"></fa-icon>
               </button>
             </div>

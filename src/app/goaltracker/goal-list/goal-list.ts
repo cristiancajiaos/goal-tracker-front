@@ -1,9 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {IconDefinition} from '@fortawesome/angular-fontawesome';
 import {faPencil, faTimes} from '@fortawesome/free-solid-svg-icons';
 import {GoalService} from '../../services/goal-service';
 import {Goal} from '../../classes/goal';
 import {ToastrService} from 'ngx-toastr';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-goal-list',
@@ -11,7 +12,7 @@ import {ToastrService} from 'ngx-toastr';
   templateUrl: './goal-list.html',
   styleUrl: './goal-list.scss'
 })
-export class GoalList implements OnInit {
+export class GoalList implements OnInit, OnDestroy {
 
   public faPencil: IconDefinition = faPencil;
   public faTimes: IconDefinition = faTimes;
@@ -19,6 +20,8 @@ export class GoalList implements OnInit {
   public loadingGoals: boolean = false;
 
   public goals: Goal[] | undefined = [];
+
+  public deleteGoalSubscription?: Subscription;
 
   constructor(
     private goalService: GoalService,
@@ -40,4 +43,16 @@ export class GoalList implements OnInit {
     });
   }
 
+  public deleteGoal(id: string | undefined): void {
+    this.deleteGoalSubscription = this.goalService.deleteGoal(id).subscribe(() => {
+      this.toastr.success("Goal deleted successfully");
+      this.getGoals();
+    }, (error) => {
+      this.toastr.error(error);
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.deleteGoalSubscription?.unsubscribe();
+  }
 }
