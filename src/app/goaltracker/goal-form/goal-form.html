@@ -1,53 +1,71 @@
 <section class="goal-form">
-  <form [formGroup]="goalForm" (ngSubmit)="sendGoal()">
-    <div class="row">
-      <div class="col-12 col-lg-4">
-        <div class="form-group mb-3">
-          <label for="goalName">Goal Name</label>
-          <input class="form-control"
-                 id="goalName"
-                 name="goalName"
-                 formControlName="goalName"/>
+  <ng-container *ngIf="!savingGoal">
+    <form [formGroup]="goalForm" (ngSubmit)="sendGoal()">
+      <div class="row">
+        <div class="col-12 col-lg-4">
+          <div class="form-group mb-3">
+            <label for="goalName">Goal Name</label>
+            <input class="form-control"
+                   id="goalName"
+                   name="goalName"
+                   formControlName="goalName"/>
+            <ng-container *ngIf="goalForm.controls['goalName'].invalid">
+              <ng-container *ngIf="!goalForm.controls['goalName'].untouched && goalForm.controls['goalName'].errors?.['required']">
+                <small class="text-danger">This field is required</small>
+              </ng-container>
+            </ng-container>
+          </div>
+        </div>
+        <div class="col-12 col-lg-4">
+          <div class="form-group mb-3">
+            <label for="goalPriority">Goal Priority</label>
+            <select class="form-control"
+                    id="goalPriority"
+                    name="goalPriority"
+                    formControlName="goalPriority">
+              <option selected disabled>Select a Goal Priority</option>
+              <option *ngFor="let priority of priorities" [value]="priority">
+                {{priority}}
+              </option>
+            </select>
+            <ng-container *ngIf="goalForm.controls['goalPriority'].invalid">
+              <ng-container *ngIf="!goalForm.controls['goalPriority'].untouched && goalForm.controls['goalPriority'].errors?.['required']">
+                <small class="text-danger">You must select a Goal Priority</small>
+              </ng-container>
+            </ng-container>
+          </div>
+        </div>
+        <div class="col-12 col-lg-4">
+          <div class="form-group mb-3">
+            <label for="goalStatus">Goal Status</label>
+            <select class="form-control"
+                    id="goalStatus"
+                    name="goalStatus"
+                    formControlName="goalStatus">
+              <option selected disabled>Select a Goal Status</option>
+              <option *ngFor="let status of statuses" [value]="status">
+                {{status}}
+              </option>
+            </select>
+            <ng-container *ngIf="goalForm.controls['goalStatus'].invalid">
+              <ng-container *ngIf="!goalForm.controls['goalStatus'].untouched && goalForm.controls['goalStatus'].errors?.['required']">
+                <small class="text-danger">You must select a Goal Status</small>
+              </ng-container>
+            </ng-container>
+          </div>
+        </div>
+        <div class="col-12 col-lg-4">
+          <div class="form-group mb-3">
+            <button type="submit" class="btn btn-success" [disabled]="goalForm.invalid">
+              <fa-icon [icon]="faSave"></fa-icon>
+              Save Goal
+            </button>
+          </div>
         </div>
       </div>
-      <div class="col-12 col-lg-4">
-        <div class="form-group mb-3">
-          <label for="goalPriority">Goal Priority</label>
-          <select class="form-control"
-                  id="goalPriority"
-                  name="goalPriority"
-                  formControlName="goalPriority">
-            <option selected disabled>Select a Goal Priority</option>
-            <option *ngFor="let priority of priorities" [value]="priority">
-              {{priority}}
-            </option>
-          </select>
-        </div>
-      </div>
-      <div class="col-12 col-lg-4">
-        <div class="form-group mb-3">
-          <label for="goalStatus">Goal Status</label>
-          <select class="form-control"
-                  id="goalStatus"
-                  name="goalStatus"
-                  formControlName="goalStatus">
-            <option selected disabled>Select a Goal Status</option>
-            <option *ngFor="let status of statuses" [value]="status">
-              {{status}}
-            </option>
-          </select>
-        </div>
-      </div>
-      <div class="col-12 col-lg-4">
-        <div class="form-group mb-3">
-          <button type="submit" class="btn btn-success" [disabled]="goalForm.invalid">
-            <fa-icon [icon]="faSave"></fa-icon>
-            Save Goal
-          </button>
-        </div>
-      </div>
-    </div>
-  </form>
-  <hr/>
-  <p>{{goalForm.value | json}}</p>
+    </form>
+  </ng-container>
+  <ng-container *ngIf="savingGoal">
+    <app-loading [loadingText]="'Saving Goal...'"></app-loading>
+  </ng-container>
 </section>

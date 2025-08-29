@@ -1,9 +1,12 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit} from '@angular/core';
 import {IconDefinition} from '@fortawesome/angular-fontawesome';
 import {faSave} from '@fortawesome/free-solid-svg-icons';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Priority} from '../../enums/priority';
 import {Status} from '../../enums/status';
+import {Goal} from '../../classes/goal';
+import {GoalService} from '../../services/goal-service';
+import {ResponseGoal} from '../../classes/response-goal';
 
 @Component({
   selector: 'app-goal-form',
@@ -25,8 +28,13 @@ export class GoalForm implements OnInit {
 
   public faSave: IconDefinition = faSave;
 
+  public savingGoal: boolean = false;
+
+  public onGoalSave: EventEmitter<ResponseGoal> = new EventEmitter<ResponseGoal>();
+
   constructor(
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private goalService: GoalService
   ) {
 
   }
@@ -40,7 +48,21 @@ export class GoalForm implements OnInit {
   }
 
   public sendGoal(): void {
-    console.log(this.goalForm.value);
+    this.savingGoal = true;
+
+    const savingGoal = new Goal();
+
+    savingGoal.name = this.goalForm.value['goalName'];
+    savingGoal.priority = this.goalForm.value['goalPriority'];
+    savingGoal.status = this.goalForm.value['goalStatus'];
+
+    this.goalService.saveGoal(savingGoal).then((responseGoal) => {
+      this.onGoalSave.emit(responseGoal);
+    }).catch((error) => {
+      console.log(error);
+    }).finally(() => {
+      this.savingGoal = false;
+    });
   }
 
 

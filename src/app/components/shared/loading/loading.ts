@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {IconDefinition} from '@fortawesome/angular-fontawesome';
 import {faSpinner} from '@fortawesome/free-solid-svg-icons';
 
@@ -11,6 +11,8 @@ import {faSpinner} from '@fortawesome/free-solid-svg-icons';
 export class Loading implements OnInit{
 
   faSpinner: IconDefinition = faSpinner;
+
+  @Input() loadingText: string = "Loading...";
 
   ngOnInit(): void {
   }

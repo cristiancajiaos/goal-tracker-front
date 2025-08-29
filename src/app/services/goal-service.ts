@@ -20,6 +20,12 @@ export class GoalService {
     return await lastValueFrom(this.http.get<ResponseGoals>(this.baseUrl));
   }
 
-  // public async saveGoal(goal: Goal):
+  public async saveGoal(goal: Goal): Promise<ResponseGoal> {
+    return await lastValueFrom((this.http.post<ResponseGoal>(this.baseUrl, goal, {
+      headers: {
+        "Content-Type":"application/json "
+      }
+    })))
+  }
 
 }
