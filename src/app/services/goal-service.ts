@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {ResponseGoal} from '../classes/response-goal';
 import {lastValueFrom} from 'rxjs';
+import {Goal} from '../classes/goal';
+import {ResponseGoals} from '../classes/response-goals';
 
 @Injectable({
   providedIn: 'root'
@@ -14,8 +16,10 @@ export class GoalService {
     private http: HttpClient
   ) {}
 
-  public async getAllGoals(): Promise<ResponseGoal> {
-    return await lastValueFrom(this.http.get<ResponseGoal>(this.baseUrl));
+  public async getAllGoals(): Promise<ResponseGoals> {
+    return await lastValueFrom(this.http.get<ResponseGoals>(this.baseUrl));
   }
+
+  // public async saveGoal(goal: Goal):
 
 }

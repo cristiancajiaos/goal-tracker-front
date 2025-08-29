@@ -29,8 +29,8 @@ export class GoalList implements OnInit {
 
   public getGoals(): void {
     this.loadingGoals = true;
-    this.goalService.getAllGoals().then((responseGoal) => {
-      this.goals = responseGoal.data;
+    this.goalService.getAllGoals().then((responseGoals) => {
+      this.goals = responseGoals.data;
     }).catch((error) => {
 
     }).finally(() => {
