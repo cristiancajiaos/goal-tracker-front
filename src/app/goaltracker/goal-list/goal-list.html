@@ -1,42 +1,37 @@
 <section class="goal-list">
-  <div class="table-responsive">
-    <table class="table table-bordered">
-      <thead>
-      <tr>
-        <th>Goal Name</th>
-        <th>Goal Priority</th>
-        <th>Goal Status</th>
-        <th>Actions</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr>
-        <!-- Elemento repetitivo -->
-        <td></td>
-        <td></td>
-        <td></td>
-        <td class="text-center">
-          <div class="btn-group">
-            <button type="button" class="btn btn-primary" ngbTooltip="Edit">
-              <fa-icon [icon]="faPencil"></fa-icon>
-            </button>
-            <button type="button" class="btn btn-danger" ngbTooltip="Delete">
-              <fa-icon [icon]="faTimes"></fa-icon>
-            </button>
-          </div>
-        </td>
-        <!-- Fin de elemento repetitivo -->
-      </tr>
-      </tbody>
-    </table>
-  </div>
-  <hr/>
   <ng-container *ngIf="loadingGoals">
     <app-loading></app-loading>
   </ng-container>
-  <hr/>
   <ng-container *ngIf="!loadingGoals">
-    <p>{{goals | json}}</p>
+    <div class="table-responsive">
+      <table class="table table-bordered">
+        <thead>
+        <tr>
+          <th>Goal Name</th>
+          <th>Goal Priority</th>
+          <th>Goal Status</th>
+          <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let goal of goals">
+          <td>{{goal.name}}</td>
+          <td>{{goal.priority}}</td>
+          <td>{{goal.status}}</td>
+          <td class="text-center">
+            <div class="btn-group">
+              <button type="button" class="btn btn-primary" ngbTooltip="Edit">
+                <fa-icon [icon]="faPencil"></fa-icon>
+              </button>
+              <button type="button" class="btn btn-danger" ngbTooltip="Delete">
+                <fa-icon [icon]="faTimes"></fa-icon>
+              </button>
+            </div>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
   </ng-container>
 </section>
 
