@@ -8,6 +8,7 @@ import { GoalList } from './goal-list/goal-list';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {SharedModule} from '../components/shared/shared-module';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 
 @NgModule({
@@ -21,7 +22,9 @@ import {SharedModule} from '../components/shared/shared-module';
     GoaltrackerRoutingModule,
     NgbModule,
     FontAwesomeModule,
-    SharedModule
+    SharedModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class GoaltrackerModule { }
