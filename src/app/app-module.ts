@@ -10,6 +10,8 @@ import { Navbar } from './components/layout/navbar/navbar';
 import { Main } from './components/layout/main/main';
 import { Footer } from './components/layout/footer/footer';
 import {provideHttpClient, withFetch} from '@angular/common/http';
+import {ToastrModule} from 'ngx-toastr';
+import {provideAnimations} from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -23,11 +25,13 @@ import {provideHttpClient, withFetch} from '@angular/common/http';
     BrowserModule,
     AppRoutingModule,
     NgbModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    ToastrModule.forRoot()
   ],
   providers: [
     provideBrowserGlobalErrorListeners(),
-    provideHttpClient(withFetch())
+    provideHttpClient(withFetch()),
+    provideAnimations()
   ],
   bootstrap: [App]
 })

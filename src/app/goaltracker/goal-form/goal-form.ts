@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {IconDefinition} from '@fortawesome/angular-fontawesome';
 import {faSave} from '@fortawesome/free-solid-svg-icons';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
@@ -7,6 +7,7 @@ import {Status} from '../../enums/status';
 import {Goal} from '../../classes/goal';
 import {GoalService} from '../../services/goal-service';
 import {ResponseGoal} from '../../classes/response-goal';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-goal-form',
@@ -30,11 +31,12 @@ export class GoalForm implements OnInit {
 
   public savingGoal: boolean = false;
 
-  public onGoalSave: EventEmitter<ResponseGoal> = new EventEmitter<ResponseGoal>();
+  @Output() onGoalSave: EventEmitter<ResponseGoal> = new EventEmitter<ResponseGoal>();
 
   constructor(
     private fb: FormBuilder,
-    private goalService: GoalService
+    private goalService: GoalService,
+    private toastr: ToastrService
   ) {
 
   }
@@ -58,8 +60,10 @@ export class GoalForm implements OnInit {
 
     this.goalService.saveGoal(savingGoal).then((responseGoal) => {
       this.onGoalSave.emit(responseGoal);
+      this.toastr.success('Goal saved successfully');
+      this.goalForm.reset();
     }).catch((error) => {
-      console.log(error);
+      this.toastr.error(error);
     }).finally(() => {
       this.savingGoal = false;
     });

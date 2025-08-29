@@ -1,3 +1,6 @@
-<app-goal-form></app-goal-form>
-<hr/>
-<app-goal-list></app-goal-list>
+<section class="goaltracker">
+  <app-goal-form (onGoalSave)="sendAlertForGoalSave($event)">
+  </app-goal-form>
+  <hr/>
+  <app-goal-list></app-goal-list>
+</section>
