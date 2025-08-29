@@ -10,6 +10,7 @@ import {faSave} from '@fortawesome/free-solid-svg-icons';
 })
 export class GoalForm implements OnInit {
 
+
   public faSave: IconDefinition = faSave;
 
   ngOnInit(): void {

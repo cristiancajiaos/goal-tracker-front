@@ -30,5 +30,13 @@
       </tbody>
     </table>
   </div>
+  <hr/>
+  <ng-container *ngIf="loadingGoals">
+    <app-loading></app-loading>
+  </ng-container>
+  <hr/>
+  <ng-container *ngIf="!loadingGoals">
+    <p>{{goals | json}}</p>
+  </ng-container>
 </section>
 

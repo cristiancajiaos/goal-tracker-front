@@ -7,6 +7,7 @@ import { GoalForm } from './goal-form/goal-form';
 import { GoalList } from './goal-list/goal-list';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {SharedModule} from '../components/shared/shared-module';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     CommonModule,
     GoaltrackerRoutingModule,
     NgbModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    SharedModule
   ]
 })
 export class GoaltrackerModule { }

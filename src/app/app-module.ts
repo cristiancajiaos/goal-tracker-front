@@ -9,6 +9,7 @@ import { Layout } from './components/layout/layout';
 import { Navbar } from './components/layout/navbar/navbar';
 import { Main } from './components/layout/main/main';
 import { Footer } from './components/layout/footer/footer';
+import {provideHttpClient, withFetch} from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { Footer } from './components/layout/footer/footer';
     FontAwesomeModule
   ],
   providers: [
-    provideBrowserGlobalErrorListeners()
+    provideBrowserGlobalErrorListeners(),
+    provideHttpClient(withFetch())
   ],
   bootstrap: [App]
 })
