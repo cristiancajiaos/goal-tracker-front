@@ -32,4 +32,8 @@ export class GoalService {
     return this.http.delete(`${this.baseUrl}/${id}`);
   }
 
+  public async getGoalById(id: string | undefined): Promise<ResponseGoal> {
+    return await lastValueFrom(this.http.get<ResponseGoal>(`${this.baseUrl}/${id}`));
+  }
+
 }

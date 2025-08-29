@@ -3,6 +3,7 @@ import {GoalList} from './goal-list/goal-list';
 import {ResponseGoal} from '../classes/response-goal';
 import {ToastrService} from 'ngx-toastr';
 import {Title} from '@angular/platform-browser';
+import {GoalForm} from './goal-form/goal-form';
 
 @Component({
   selector: 'app-goaltracker',
@@ -12,6 +13,7 @@ import {Title} from '@angular/platform-browser';
 })
 export class Goaltracker implements OnInit {
 
+  @ViewChild(GoalForm) goalForm!: GoalForm;
   @ViewChild(GoalList) goalList!: GoalList;
 
   constructor(
@@ -29,6 +31,10 @@ export class Goaltracker implements OnInit {
 
   public sendAlertForGoalSave(goal: ResponseGoal): void {
     this.goalList.getGoals();
+  }
+
+  public setGoalToEdit(id: string | undefined) {
+    this.goalForm.getGoalToEdit(id);
   }
 
 }

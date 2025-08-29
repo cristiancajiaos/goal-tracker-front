@@ -1,6 +1,6 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {IconDefinition} from '@fortawesome/angular-fontawesome';
-import {faSave} from '@fortawesome/free-solid-svg-icons';
+import {faSave, faBroom} from '@fortawesome/free-solid-svg-icons';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Priority} from '../../enums/priority';
 import {Status} from '../../enums/status';
@@ -28,8 +28,11 @@ export class GoalForm implements OnInit {
   public goalForm: FormGroup = new FormGroup({});
 
   public faSave: IconDefinition = faSave;
+  public faBroom: IconDefinition = faBroom;
 
+  public loadingGoal: boolean = false;
   public savingGoal: boolean = false;
+  public editGoal: boolean = false;
 
   @Output() onGoalSave: EventEmitter<ResponseGoal> = new EventEmitter<ResponseGoal>();
 
@@ -49,6 +52,25 @@ export class GoalForm implements OnInit {
     });
   }
 
+  public getGoalToEdit(id: string | undefined) {
+    this.loadingGoal = true;
+    this.goalService.getGoalById(id)
+    .then((responseGoal) => {
+      const goal = responseGoal.data;
+      this.goalForm.reset();
+      this.goalForm.controls['goalName'].setValue(goal?.name);
+      this.goalForm.controls['goalPriority'].setValue(goal?.priority);
+      this.goalForm.controls['goalStatus'].setValue(goal?.status);
+      this.editGoal = true;
+    })
+    .catch((error) => {
+      this.toastr.error(error);
+    })
+    .finally(() => {
+      this.loadingGoal = false;
+    });
+  }
+
   public sendGoal(): void {
     this.savingGoal = true;
 
@@ -61,12 +83,20 @@ export class GoalForm implements OnInit {
     this.goalService.saveGoal(savingGoal).then((responseGoal) => {
       this.onGoalSave.emit(responseGoal);
       this.toastr.success('Goal saved successfully');
-      this.goalForm.reset();
+      this.cleanForm();
     }).catch((error) => {
       this.toastr.error(error);
     }).finally(() => {
       this.savingGoal = false;
     });
+  }
+
+  public cleanForm(): void {
+    this.goalForm.controls['goalName'].setValue('');
+    this.goalForm.controls['goalPriority'].setValue('');
+    this.goalForm.controls['goalStatus'].setValue('');
+    this.goalForm.reset();
+    this.editGoal = false;
   }
 
 

@@ -20,7 +20,10 @@
           <td>{{goal.status}}</td>
           <td class="text-center">
             <div class="btn-group">
-              <button type="button" class="btn btn-primary" ngbTooltip="Edit">
+              <button type="button"
+                      class="btn btn-primary"
+                      ngbTooltip="Edit"
+                      (click)="editGoal(goal.id)">
                 <fa-icon [icon]="faPencil"></fa-icon>
               </button>
               <button type="button"
