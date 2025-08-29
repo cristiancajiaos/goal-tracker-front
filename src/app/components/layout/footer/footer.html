@@ -1,0 +1,13 @@
+<footer>
+  <div class="container-fluid">
+    <p>
+      &#169; Cristian Cajiao Skarnic,
+      <ng-container *ngTemplateOutlet="creationYearEqualsCurrentDate() ? year : yearsRange">
+      </ng-container>
+    </p>
+  </div>
+</footer>
+
+<ng-template #year>{{currentYear}}</ng-template>
+<ng-template #yearsRange>{{creationYear}} - {{currentYear}}</ng-template>
+
