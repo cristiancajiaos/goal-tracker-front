@@ -1,1 +1,34 @@
-<p>goal-list works!</p>
+<section class="goal-list">
+  <div class="table-responsive">
+    <table class="table table-bordered">
+      <thead>
+      <tr>
+        <th>Goal Name</th>
+        <th>Goal Priority</th>
+        <th>Goal Status</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <!-- Elemento repetitivo -->
+        <td></td>
+        <td></td>
+        <td></td>
+        <td class="text-center">
+          <div class="btn-group">
+            <button type="button" class="btn btn-primary" ngbTooltip="Edit">
+              <fa-icon [icon]="faPencil"></fa-icon>
+            </button>
+            <button type="button" class="btn btn-danger" ngbTooltip="Delete">
+              <fa-icon [icon]="faTimes"></fa-icon>
+            </button>
+          </div>
+        </td>
+        <!-- Fin de elemento repetitivo -->
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+

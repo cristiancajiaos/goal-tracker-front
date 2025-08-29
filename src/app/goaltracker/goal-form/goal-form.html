@@ -1,1 +1,34 @@
-<p>goal-form works!</p>
+<section class="goal-form">
+  <form>
+    <div class="row">
+      <div class="col-12 col-lg-4">
+        <div class="form-group mb-3">
+          <label for="goalName">Goal Name</label>
+          <input class="form-control" id="goalName" name="goalName"/>
+        </div>
+      </div>
+      <div class="col-12 col-lg-4">
+        <div class="form-group mb-3">
+          <label for="goalPriority">Goal Priority</label>
+          <select class="form-control" id="goalPriority" name="goalPriority">
+          </select>
+        </div>
+      </div>
+      <div class="col-12 col-lg-4">
+        <div class="form-group mb-3">
+          <label for="goalStatus">Goal Status</label>
+          <select class="form-control" id="goalStatus" name="goalStatus">
+          </select>
+        </div>
+      </div>
+      <div class="col-12 col-lg-4">
+        <div class="form-group mb-3">
+          <button type="submit" class="btn btn-success">
+            <fa-icon [icon]="faSave"></fa-icon>
+            Save Goal
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+</section>
